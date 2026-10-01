@@ -1,6 +1,6 @@
 # Import required modules
 import secrets
-from fastapi import APIRouter, Response, HTTPException
+from fastapi import APIRouter, Request, Response, HTTPException
 from getKST import getKST
 from pydantic import BaseModel
 from datetime import datetime, timedelta
@@ -73,5 +73,64 @@ async def login(request: LoginRequest, response: Response):
         "user": {
             "id": user["id"],
             "username": user["username"],
+        },
+    }
+
+
+@router.get("/api/auth/check")
+def check(request: Request):
+    kst_str = getKST()
+    KST = datetime.strptime(kst_str, "%Y-%m-%d %H:%M:%S")
+
+    session_token = request.cookies.get("sessionToken")
+
+    if not session_token:
+        raise HTTPException(
+            status_code=401,
+            detail="세션 토큰이 존재하지 않습니다.",
+        )
+
+    with ConnectDB() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute(
+                "SELECT user_id, session_token, expires_at FROM sessions WHERE session_token = %s",
+                (session_token,),
+            )
+            session = cast(dict, cursor.fetchone())
+
+            if session is None:
+                raise HTTPException(
+                    status_code=401,
+                    detail="유효하지 않은 세션입니다.",
+                )
+
+            user_id = session["user_id"]
+            expires_at = session["expires_at"]
+
+            if KST > expires_at:
+                raise HTTPException(
+                    status_code=401,
+                    detail="세션이 만료되었습니다. 다시 로그인해주세요.",
+                )
+
+            cursor.execute(
+                "SELECT username FROM users WHERE id = %s",
+                (user_id,),
+            )
+            user = cast(dict, cursor.fetchone())
+
+            if user is None:
+                raise HTTPException(
+                    status_code=404,
+                    detail="사용자를 찾을 수 없습니다.",
+                )
+
+            username = user["username"]
+
+    return {
+        "success": True,
+        "user": {
+            "id": user_id,
+            "username": username,
         },
     }
