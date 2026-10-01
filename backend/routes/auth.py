@@ -20,7 +20,7 @@ class LoginRequest(BaseModel):
 
 # Router for login and cookie setting
 @router.post("/api/auth/login")
-def login(request: LoginRequest, response: Response):
+async def login(request: LoginRequest, response: Response):
     # Convert KST string to datetime object
     kst_str = getKST()
     kst_datetime = datetime.strptime(kst_str, "%Y-%m-%d %H:%M:%S")
