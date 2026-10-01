@@ -10,10 +10,12 @@ requires-python = ">=3.12.1"
 dependencies = [
     "argon2-cffi>=25.1.0",
     "fastapi[standard]>=0.142.2",
+    "getkst>=1.0.2",
     "passlib>=1.7.4",
     "psycopg[binary]>=3.3.6",
     "pydantic>=2.13.5",
     "python-dotenv>=1.2.3",
+    "requests>=2.34.2",
     "sqlalchemy>=2.1.1",
     "uvicorn[standard]>=0.54.0",
 ]
