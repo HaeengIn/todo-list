@@ -8,7 +8,7 @@ You may use this project under conditions below:
 - Do not use this project as commercial.
 - Redistribute in a same license(CC BY-NC-SA 4.0).
 
-Read full license at [here](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.en).
+Read full license at [Creative Commons homepage](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.en).
 
 ## Korean
 
@@ -18,4 +18,4 @@ Read full license at [here](https://creativecommons.org/licenses/by-nc-sa/4.0/le
 - 본 프로젝트를 상업적으로 사용하지 마세요.
 - 동일한 라이선스(CC BY-NC-SA 4.0)으로 재배포하세요.
 
-[여기](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.ko)에서 전체 라이선스를 읽어주세요.
+[크리에이티브 커먼즈 홈페이지](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.ko)에서 전체 라이선스를 읽어주세요.
